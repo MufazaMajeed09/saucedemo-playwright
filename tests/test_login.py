@@ -1,5 +1,5 @@
 from playwright.sync_api import expect, Page
-import pytest;
+import pytest
 
 def test_valid_login(page:Page):
     page.goto("https://www.saucedemo.com/")
