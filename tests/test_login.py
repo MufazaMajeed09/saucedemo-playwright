@@ -25,6 +25,12 @@ def test_invalid_login(page:Page,username,password,expected_value):
 
     expect (page.locator('[data-test="error"]')).to_have_text(expected_value)
 
+def test_logout(logged_in):
+    logged_in.locator("#react-burger-menu-btn").click()
+    logged_in.locator('[data-test="logout-sidebar-link"]').click()
+    expect(logged_in).to_have_url("https://www.saucedemo.com/")
+    expect(logged_in.locator('[data-test="username"]')).to_be_visible()
+
 
 
 
