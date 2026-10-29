@@ -1,25 +1,25 @@
 
 from playwright.sync_api import expect, Page
-import pytest
+from pages.products_page import ProductsPage
+
 
 def test_six_products(logged_in):
-
-    expect(logged_in.locator('[data-test="inventory-item"]')).to_have_count(6)
+    products_page = ProductsPage(logged_in)
+    expect(products_page.inventory_items).to_have_count(6)
 
 
 def test_price_lo_to_high(logged_in):
     
-    logged_in.locator('[data-test="product-sort-container"]').select_option("lohi")
+    products_page = ProductsPage(logged_in)
+    products_page.select_option_from_filter("lohi")
     list_of_items =[]
     copy_list_of_items = [] 
     processed_list=[]
+    
 
-    list_of_items=(logged_in.locator('[data-test="inventory-item-price"]')).all_inner_texts()
+    list_of_items=products_page.get_list_of_items()
+    processed_list=products_page.process_list(list_of_items)
      
-    for item in list_of_items:
-        a=item.replace("$", "")
-        b=float(a)
-        processed_list.append(b)
 
     copy_list_of_items = processed_list.copy()
     processed_list.sort()
