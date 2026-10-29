@@ -1,15 +1,21 @@
 import pytest
 from playwright.sync_api import expect, Page
+from pages.login_page import LoginPage
 
 @pytest.fixture
 def logged_in(page:Page):
-    page.goto("https://www.saucedemo.com/")
-    page.locator('[data-test="username"]').fill("standard_user")
-    page.locator('[data-test="password"]').fill("secret_sauce")
-    page.locator('[data-test="login-button"]').click()
-  
+
+
+    login_page = LoginPage(page)
+    login_page.open_login_page()
+    login_page.enter_username("standard_user")
+    login_page.enter_password("secret_sauce")
+    login_page.press_login()
 
     expect(page).to_have_url("https://www.saucedemo.com/inventory.html")
     expect(page.locator('[data-test="title"]')).to_have_text("Products")
 
     return page
+
+
+
