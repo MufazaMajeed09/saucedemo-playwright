@@ -28,3 +28,14 @@ def test_check_out(logged_in):
     checkout_complete = CheckOutCompletePage(logged_in)
     expect (checkout_complete.checkout_header).to_have_text("Thank you for your order!")
 
+
+def test_missing_fname(checkout):
+    
+    checkout_page = CheckoutPage(checkout)
+    checkout_page.fill_checkout_details("","x","123")
+    checkout_page.click_continue()
+
+    expect (checkout_page.error_text).to_have_text("Error: First Name is required")
+
+
+

@@ -6,6 +6,7 @@ class CheckoutPage:
         self.code = page.locator('[data-test="postalCode"]')
 
         self.continue_button = page.locator('[data-test="continue"]')
+        self.error_text = page.locator('[data-test="error"]')
 
     def fill_checkout_details(self,fname,lname,code):
         self.fname.fill(fname)

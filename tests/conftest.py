@@ -1,6 +1,9 @@
 import pytest
 from playwright.sync_api import expect, Page
 from pages.login_page import LoginPage
+from pages.products_page import ProductsPage
+from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
 
 @pytest.fixture
 def logged_in(page:Page):
@@ -19,3 +22,19 @@ def logged_in(page:Page):
 
 
 
+@pytest.fixture
+def checkout(logged_in):
+    
+    products_page = ProductsPage(logged_in)
+    products_page.add_bag_pack()
+
+    products_page.click_cart_button() 
+
+    #new web page means new object class
+    cart_page = CartPage(logged_in)
+    cart_page.click_checkout_button()
+
+    #new web page
+    checkout_page = CheckoutPage(logged_in)
+
+    return logged_in
