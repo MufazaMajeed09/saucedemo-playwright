@@ -6,7 +6,7 @@ def test_add_to_cart_shows_badge(logged_in):
     products_page = ProductsPage(logged_in)
 
     products_page.add_bag_pack()
-    expect (products_page.car_badge).to_have_text(str(1))
+    expect (products_page.car_badge).to_have_text(str(2))
 
 def test_remove_from_cart_hides_badge(logged_in):
    products_page = ProductsPage(logged_in)
